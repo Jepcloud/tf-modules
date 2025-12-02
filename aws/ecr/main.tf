@@ -15,8 +15,9 @@ resource "aws_iam_user" "user" {
   name = "j-${var.repo_name}-ecr-push-user"
 }
 
-resource "aws_iam_policy" "ecr_push_policy" {
+resource "aws_iam_user_policy" "ecr_push_policy" {
   name = "j-${var.repo_name}-ecr-push-policy"
+  user = aws_iam_user.user.name
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -30,12 +31,6 @@ resource "aws_iam_policy" "ecr_push_policy" {
         Effect = "Allow"
         Action = [
           "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:GetRepositoryPolicy",
-          "ecr:DescribeRepositories",
-          "ecr:ListImages",
-          "ecr:DescribeImages",
-          "ecr:BatchGetImage",
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
@@ -45,11 +40,6 @@ resource "aws_iam_policy" "ecr_push_policy" {
       }
     ]
   })
-}
-
-resource "aws_iam_user_policy_attachment" "ecr_push_policy_attachment" {
-  user       = aws_iam_user.user.name
-  policy_arn = aws_iam_policy.ecr_push_policy.arn
 }
 
 resource "aws_iam_access_key" "ecr_user_access_key" {
