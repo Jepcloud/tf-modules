@@ -34,6 +34,7 @@ resource "aws_iam_user_policy" "ecr_push_policy" {
           "ecr:InitiateLayerUpload",
           "ecr:UploadLayerPart",
           "ecr:CompleteLayerUpload",
+          "ecr:BatchGetImage",
           "ecr:PutImage"
         ]
         Resource = aws_ecr_repository.repo.arn
