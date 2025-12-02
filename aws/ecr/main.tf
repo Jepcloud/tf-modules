@@ -3,7 +3,7 @@ variable "repo_name" {
 }
 
 resource "aws_ecr_repository" "repo" {
-  name                 = var.repo_name
+  name                 = "j-repo-${var.repo_name}"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -12,11 +12,11 @@ resource "aws_ecr_repository" "repo" {
 }
 
 resource "aws_iam_user" "user" {
-  name = "${var.repo_name}-ecr-push-user"
+  name = "j-${var.repo_name}-ecr-push-user"
 }
 
 resource "aws_iam_policy" "ecr_push_policy" {
-  name = "${var.repo_name}-ecr-push-policy"
+  name = "j-${var.repo_name}-ecr-push-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
