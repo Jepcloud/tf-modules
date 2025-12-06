@@ -9,11 +9,11 @@ variable "cidr_block" {
 }
 
 variable "public_cidr_block" {
-  type     = set(string)
+  type     = list(string)
   nullable = false
 }
 
 variable "private_cidr_block" {
-  type     = set(string)
+  type     = list(string)
   nullable = false
 }
