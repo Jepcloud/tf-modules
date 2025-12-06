@@ -30,9 +30,9 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  count             = length(var.public_cidr_block)
+  count             = length(var.private_cidr_block)
   vpc_id            = aws_vpc.custom.id
-  cidr_block        = var.public_cidr_block[count.index]
+  cidr_block        = var.private_cidr_block[count.index]
   availability_zone = data.aws_availability_zones.az.names[count.index]
 
   # Optional IPv6 support
