@@ -33,7 +33,7 @@ resource "aws_route_table_association" "public" {
 
 resource "aws_route_table" "private" {
   count  = length(var.private_cidr_block)
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = aws_vpc.custom.id
 
   # TODO: To be added later   
   #   route {
